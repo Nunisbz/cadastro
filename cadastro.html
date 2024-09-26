@@ -9,7 +9,48 @@
 <body>
     <div class="container">
         <h1>Cadastro</h1>
-
+        <form id="cadastroForm" onsubmit="validarCadastro()">
+            <input type="text" placeholder="Nome" id="nome">
+            <input type="email" placeholder="E-mail" id="email">
+            <input type="password" placeholder="Senha" id="senha">
+            <input type="password" placeholder="Confirme a Senha" id="confirmaSenha">
+            <button id="cadastrar" type="submit">Cadastrar</button>
+        </form>
+        <span id="mensagemErro" style="color: red; display: none;"></span>
+        <span id="mensagemSucesso" style="color: green; display: none;">Cadastro realizado com sucesso!</span>
     </div>
+
+    <script>
+        function validarCadastro() {
+            event.preventDefault();  
+
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmaSenha = document.getElementById('confirmaSenha').value;
+
+            const mensagemErro = document.getElementById('mensagemErro');
+            const mensagemSucesso = document.getElementById('mensagemSucesso');
+
+            mensagemErro.style.display = 'none';
+            mensagemSucesso.style.display = 'none';
+
+            if (nome === '' || email === '' || senha === '' || confirmaSenha === '') {
+                mensagemErro.style.display = 'block';
+                mensagemErro.innerText = 'Todos os campos são obrigatórios!';
+                return false;
+            }
+
+            if (senha !== confirmaSenha) {
+                mensagemErro.style.display = 'block';
+                mensagemErro.innerText = 'As senhas não correspondem!';
+                return false;
+            }
+
+            mensagemSucesso.style.display = 'block';
+            document.getElementById('cadastroForm').reset();
+            return true;
+        }
+    </script>
 </body>
 </html>
